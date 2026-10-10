@@ -3,7 +3,7 @@
 #
 # One JSON witness contract for every solver backend. MVP ships `sweep` (numpy — no venv needed,
 # just `python3 -m pip install numpy` if your python3 lacks it); sat/smt/cas/graphs need the deferred solver stack
-# (`scripts/solver-env.sh install`, deferred to #64). Every run writes
+# (`scripts/solver-env.sh install`; not installed by default). Every run writes
 # `.search/<id>/{witness.json, run.log}` (gitignored) so a search is reproducible + auditable.
 #
 #   scripts/solve.sh sweep --py PRED.py --range A B [--jobs N] [--id ID] [--attempt AID --subgoal SG]
@@ -47,7 +47,7 @@ PYEOF
     done
     ;;
   sat|smt|cas|graphs)
-    echo "❌ '$cmd' needs the solver stack (z3/pysat/cvc5/…), which is DEFERRED to #64." >&2
+    echo "❌ '$cmd' needs the solver stack (z3/pysat/cvc5/…), which is not installed by default." >&2
     echo "   Install it sudo-free with: scripts/solver-env.sh install   (then re-run)." >&2
     exit 2
     ;;

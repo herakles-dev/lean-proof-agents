@@ -7,7 +7,7 @@
 # we can actually attempt is **cat-(a)**: `informal_status.state ∈ {falsifiable, decidable, verifiable}`
 # — 41 problems (all unformalized), 33 with a Lean statement in google-deepmind/formal-conjectures,
 # 7 carrying money. This script pins ONE upstream commit of that yaml into a gitignored snapshot and
-# parses it with python3 stdlib only (no pyyaml). erdosproblems.com 403s from this host — the yaml is
+# parses it with python3 stdlib only (no pyyaml). erdosproblems.com may refuse scripted requests — the yaml is
 # the data source.
 #
 #   scripts/erdos-fetch.sh where              # cache dir + pinned commit + corpus size
@@ -19,6 +19,8 @@
 # Cache: .erdos-cache/ (gitignored) — src/problems.yaml (pinned), LICENSE, PROVENANCE (repo+commit+date+license),
 # fc-files.txt (best-effort index of formal-conjectures ErdosProblems ids, from `main` — NOT pinned).
 set -euo pipefail
+command -v curl >/dev/null 2>&1 || { echo "erdos-fetch.sh: needs curl" >&2; exit 1; }
+command -v python3 >/dev/null 2>&1 || { echo "erdos-fetch.sh: needs python3" >&2; exit 1; }
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"

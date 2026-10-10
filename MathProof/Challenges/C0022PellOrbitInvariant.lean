@@ -10,13 +10,7 @@ The map `f(x,y) = (3x+4y, 2x+3y)` preserves the quantity `x² − 2y²` (Pell fo
 So the orbit of `(3,2)` never reaches `(1,1)` — a pure INVARIANT argument (direct induction on the
 pair gets no grip; you must find the conserved quantity). Truth-gated: inv = 1 for n=0..10.
 
-Workflow:
-1. (optional) explore first:  `scripts/wolfram.sh "<atomic query>"`
-2. state the theorem below, keep `sorry` while you work
-3. build it:  `lake build MathProof.Challenges.C0022PellOrbitInvariant`
-4. verify done (no sorry, clean axioms):  `scripts/check-proof.sh C0022PellOrbitInvariant`
-
-Not imported by `MathProof.lean` until `scripts/new-challenge.sh` copies it.
+Verify:  `scripts/check-proof.sh C0022PellOrbitInvariant`
 -/
 
 namespace MathProof.Challenges.C0022PellOrbitInvariant

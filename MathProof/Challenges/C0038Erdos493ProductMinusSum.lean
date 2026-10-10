@@ -24,7 +24,7 @@ written as `(∏ i, a i) - (∑ i, a i)` for some `a : Fin k → ℤ` with every
 
 /-- Shim of formal-conjectures' `answer(·)` elaborator: for a `Prop` argument it elaborates to
 that proposition (`answer(True)` ≡ `True`). -/
-macro "answer(" t:term ")" : term => `($t)
+local macro "answer(" t:term ")" : term => `($t)
 
 namespace MathProof.Challenges.C0038Erdos493ProductMinusSum
 

@@ -18,6 +18,8 @@
 # after `abbrev *_solution := sorry` (e.g. `-- 18`, `-- True`); pure-statement problems have none.
 # Cache: .putnam-cache/ (gitignored) — src/*.lean, LICENSE, PROVENANCE (repo + commit + date).
 set -euo pipefail
+command -v curl >/dev/null 2>&1 || { echo "putnam-fetch.sh: needs curl" >&2; exit 1; }
+command -v python3 >/dev/null 2>&1 || { echo "putnam-fetch.sh: needs python3" >&2; exit 1; }
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"

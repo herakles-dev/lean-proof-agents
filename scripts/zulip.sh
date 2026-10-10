@@ -14,6 +14,8 @@
 #   scripts/zulip.sh messages "<stream>" ["<topic>"] [N]   # recent messages in a stream/topic
 #   scripts/zulip.sh claimed "<lemma-or-node-id>"    # search convenience for claim recon
 set -euo pipefail
+command -v curl >/dev/null 2>&1 || { echo "zulip.sh: needs curl" >&2; exit 1; }
+command -v jq >/dev/null 2>&1 || { echo "zulip.sh: needs jq" >&2; exit 1; }
 
 ENVFILE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/.env"
 envget() {  # envget NAME -> value from the .env file (empty if absent)

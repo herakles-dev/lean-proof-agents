@@ -15,6 +15,8 @@
 #
 # Network best-effort (curl). If a project uses different color semantics, run --colors first.
 set -euo pipefail
+command -v curl >/dev/null 2>&1 || { echo "blueprint-leaves.sh: needs curl" >&2; exit 1; }
+command -v python3 >/dev/null 2>&1 || { echo "blueprint-leaves.sh: needs python3" >&2; exit 1; }
 
 DEFAULT_URL="https://AlexKontorovich.github.io/PrimeNumberTheoremAnd/blueprint/dep_graph_document.html"
 READY_COLOR="${READY_COLOR:-#A3D6FF}"
@@ -40,7 +42,7 @@ else
   url="${SRC:-$DEFAULT_URL}"
   tmp="$(mktemp --suffix=.html)"; trap 'rm -f "$tmp"' EXIT
   if ! curl -fsS --max-time 30 -o "$tmp" "$url" 2>/dev/null; then
-    echo "❌ could not fetch $url (network may be blocked from this host; try --file)" >&2
+    echo "❌ could not fetch $url (network may be blocked; try --file)" >&2
     exit 1
   fi
   html_path="$tmp"

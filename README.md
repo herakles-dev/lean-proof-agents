@@ -13,6 +13,17 @@ with no `sorry` and only the standard axioms (`propext`, `Classical.choice`, `Qu
 say-so, is treated as evidence of a proof. Anyone may say they brushed their teeth; the kernel
 checks whether the toothbrush is wet.
 
+**Merged upstream.** Two pull requests from this work were merged into
+[google-deepmind/formal-conjectures](https://github.com/google-deepmind/formal-conjectures):
+
+| PR | Merged | What it is | From |
+|----|--------|------------|------|
+| [#5425](https://github.com/google-deepmind/formal-conjectures/pull/5425) | 2026-09-18 | The proof of `erdos_399.variants.cambie` (Erdős #399, Cambie's variant) | C0037 |
+| [#5481](https://github.com/google-deepmind/formal-conjectures/pull/5481) | 2026-09-18 | A `formal_proof` link from `erdos_672.variants.euler` (Erdős #672, Euler's case) to the proof published at [erdos672-four-squares-lean](https://github.com/herakles-dev/erdos672-four-squares-lean) | C0040, C0041 |
+
+The first is a proof that now lives upstream. The second is a link: the proof stays in its own
+repository and upstream points at it.
+
 If you only have a few minutes:
 
 - Browse the [solved challenges](#solved-challenges) table, then open one module, for example
@@ -74,7 +85,7 @@ statement stub in `challenges/####-putnam-1988-b2.md`, and wires the import into
 
 Edit the generated module: replace the placeholder statement with the real theorem, then
 replace `sorry` with a proof. Build just that module while you iterate (`####` is the number
-`new-challenge.sh` assigned):
+`new-challenge.sh` assigned and printed; on a fresh clone it is `0049`):
 
 ```bash
 lake build MathProof.Challenges.C####Putnam1988B2
@@ -152,7 +163,8 @@ definition calls it "the *project manager* of a single hard proof attempt", and 
 hand down include `abandon-subgoal` and `abandon-target`. Mathematics held out against project
 management longer than most fields. The method and its sources are written up in `docs/PROOF_METHODOLOGY.md` (Part E).
 
-**Parallel leaf swarm.** When a plan has several independent leaves, `/swarm`
+**Parallel leaf swarm.** When a plan has several independent leaves (subgoals that depend on
+nothing still unproved), `/swarm`
 (`.claude/skills/swarm/SKILL.md`) proves them in parallel. Each prover owns one file and publishes
 a finished lemma through `scripts/bank.sh`, which maintains a shared importable "blackboard" that
 later leaves can build on. `bank.sh race` runs several candidate proofs for one hard leaf and keeps
@@ -167,7 +179,8 @@ which is none.
 prover swarm, audits each result, logs recipes to `PROOF_PATTERNS.md` and runs `verify-all.sh`.
 
 **Solver witness to Lean certificate.** For statements that are finite computations (for example
-"no counterexample below N"), `scripts/solve.sh` runs a search and writes a witness file, and
+"no counterexample below N"), `scripts/solve.sh` runs a search and writes a witness file (the concrete data the search
+produced), and
 `scripts/witness-to-lean.sh` turns it into a Lean module that the kernel checks with
 `decide +kernel`. The bridge lemmas live in `MathProof/Certify.lean` and `MathProof/Certify/`
 (`Sup`, `Graph`, `Finset`, `Reflect`). The rule there is no `native_decide` and no extra axioms, so
@@ -260,7 +273,9 @@ model tiers the agents run on, and a row may say which tier closed the proof ("a
 strongest one available; a "cold" solve had no lemma-search pre-pass). "Trusted trio" means the
 three standard axioms. The "moat" is the witness-to-Lean certificate layer in `MathProof/Certify/`.
 "Dogfood" means the tooling was being tested on that problem, and Phases ①, ② and ③ are the
-stages of the swarm design in `docs/SWARM_SPEC.md`.
+stages of the swarm design in `docs/SWARM_SPEC.md`. "`proof-auditor` PASS" records that the
+auditing agent reviewed the statement at the time. Those verdicts were not saved in the repo,
+so read them as history; the kernel gate is the only evidence here.
 
 Rows 0042 and 0044 are bounded partial results on Erdős problem #647, which carries a £25 prize.
 Row 0042 ends "**NOT** the £25 prize". Most things are not the £25 prize; this one says so in bold.
@@ -272,7 +287,7 @@ Row 0042 ends "**NOT** the £25 prize". Most things are not the £25 prize; this
 | 0003 | Gauss's sum (by induction) | `gauss_sum` | ✅ SOLVED |
 | 0004 | Sum of first n odds = n² | `sum_odds` | ✅ SOLVED |
 | 0005 | Sum of first n squares | `sum_squares` | ✅ SOLVED |
-| 0006 | Two-variable AM–GM | `two_mul_le_add_sq` | ✅ SOLVED |
+| 0006 | AM–GM, squares form (`2ab ≤ a²+b²` over ℝ) | `two_mul_le_add_sq` | ✅ SOLVED |
 | 0007 | Sum of first n cubes | `sum_cubes` | ✅ SOLVED |
 | 0008 | Bernoulli's inequality | `bernoulli` | ✅ SOLVED |
 | 0009 | √p irrational for prime p | `sqrt_prime_irrational` | ✅ SOLVED |
@@ -302,14 +317,14 @@ Row 0042 ends "**NOT** the £25 prize". Most things are not the £25 prize; this
 | 0033 | Putnam 1983 A1: count of positive integers dividing `10⁴⁰` or `20³⁰` `= 2301` (coprime prime-power divisor counts + inclusion–exclusion; ℤ↔ℕ via `natAbs` image; **cold Sonnet solve**) | `putnam_1983_a1` | ✅ SOLVED |
 | 0034 | Putnam 1994 B1: positive integers within 250 of exactly 15 perfect squares `= [315,325]∪[332,350]` (`Nat.sqrt` sandwich → `Finset.Icc` → pin `k∈{8,9}` via `nlinarith`+`interval_cases`; **cold Sonnet solve**) | `putnam_1994_b1` | ✅ SOLVED |
 | 0035 | Putnam 2001 A3: when `x⁴−(2m+4)x²+(m−2)²` factors over ℤ `⟺ m=k² ∨ 2k²=m` (degree-2 coeff extraction + infinite-descent lemmas over ℤ; **cold Sonnet solve**) | `putnam_2001_a3` | ✅ SOLVED |
-| 0036 | Finite Krein–Milman: `convexHull` of a **finite** set = `convexHull` of its extreme points (drop the `closure` in `closure_convexHull_extremePoints` via `Set.Finite.isClosed_convexHull`) — infra lemma unblocking C0031 | `finite_convexHull_eq_convexHull_extremePoints` | ✅ SOLVED |
-| 0037 | **Erdős #399** (Cambie's variant): `n! ≠ x⁴+y⁴` for coprime `x,y`, `xy>1` (mod-8: `z⁴%8 = z%2`, coprimality ⇒ not both even ⇒ sum `∈{1,2}` mod 8, but `8∣n!` for `n≥4`) — a formalization gap in google-deepmind/formal-conjectures, first Erdős recognition target | `erdos_399_cambie` | ✅ SOLVED |
+| 0036 | Finite Krein–Milman in ℝ²: `convexHull` of a **finite** set = `convexHull` of its extreme points (drop the `closure` in `closure_convexHull_extremePoints` via `Set.Finite.isClosed_convexHull`) — infra lemma unblocking C0031 | `finite_convexHull_eq_convexHull_extremePoints` | ✅ SOLVED |
+| 0037 | **Erdős #399** (Cambie's variant): `n! ≠ x⁴+y⁴` for coprime `x,y`, `xy>1` (mod-8: `z⁴%8 = z%2`, coprimality ⇒ not both even ⇒ sum `∈{1,2}` mod 8, but `8∣n!` for `n≥4`) — an open `sorry` in google-deepmind/formal-conjectures when this was written; the proof was merged upstream as [#5425](https://github.com/google-deepmind/formal-conjectures/pull/5425) | `erdos_399_cambie` | ✅ SOLVED |
 | 0038 | **Erdős #493** (Schinzel): every sufficiently large integer `n = ∏aᵢ − ∑aᵢ` for some integers `aᵢ≥2` (constructive, `k=2`: `n=2(n+2)−(2+(n+2))`) — solved in the literature; an independent re-proof (upstream already links an external Lean proof) | `erdos_493` | ✅ SOLVED |
 | 0039 | **Erdős #349** (side-lemma): every `k:ℕ` is a sum of distinct powers of two (binary expansion; one-line Mathlib match `Finset.sum_toFinset_bitIndices_two_pow`) | `exists_finsetSum_two_pow` | ✅ SOLVED |
 | 0040 | **Erdős #672, Euler's case (`k=4`, `l=2`)**: the product of a 4-term AP of positive integers with coprime common difference is never a perfect square (`n(n+d)(n+2d)(n+3d) ≠ q²`). Full multi-agent descent: `d=1` sandwich + `d≥2` reduces (both parities) via concordant forms to **Fermat's "no four squares in AP" (1640)** — a genuine **Mathlib gap** (no four-squares-in-AP / `x⁴−y⁴=z²` / congruent-number theorem exists) closed **from scratch**: equal-area Pythagorean pair → Euler four-number factorisation → `(1,4)` concordant descent on `\|X\|·\|Y\|` via `PythagoreanTriple.coprime_classification'`; apex-Fable close | `ap4_prod_ne_sq` | ✅ SOLVED |
-| 0041 | **Erdős #672 bridge**: proves `Erdos672With 4 2` — the exact `formal-conjectures` `erdos_672.variants.euler` statement (abstract `Set.IsAPOfLengthWith` AP over a `Finset ℕ`) — by unfolding the AP predicate to `{n,n+d,n+2d,n+3d}` and reducing to C0040's `ap4_prod_ne_sq`. Definitions replicated verbatim (same Mathlib pin) so the proof transfers into their repo; the target was an open upstream `sorry` when this was written | `erdos_672_variants_euler` | ✅ SOLVED |
+| 0041 | **Erdős #672 bridge**: proves `Erdos672With 4 2` — the exact `formal-conjectures` `erdos_672.variants.euler` statement (abstract `Set.IsAPOfLengthWith` AP over a `Finset ℕ`) — by unfolding the AP predicate to `{n,n+d,n+2d,n+3d}` and reducing to C0040's `ap4_prod_ne_sq`. Definitions replicated verbatim (same Mathlib pin) so the proof transfers into their repo; the target was an open upstream `sorry` when this was written, and upstream now links this proof ([#5481](https://github.com/google-deepmind/formal-conjectures/pull/5481)) | `erdos_672_variants_euler` | ✅ SOLVED |
 | 0042 | **Erdős #647** (bounded partial): no `n∈[25,60)` has `max_{m<n}(m+τ(m))≤n+2` — the finite-computation solver layer's `decide+kernel` core bridged to the ⨆-form via `Certify.Sup.lt_ciSup_of_exists_range` (the witness→Lean moat). Honest partial (sweep no-witness ≤2·10⁶, min excess 1 at n=35), **NOT** the £25 prize; first end-to-end solver-layer dogfood | `no_witness_below_60` | ✅ SOLVED |
-| 0043 | **Fermat's "no four squares in AP" (1640)** — a standalone, minimal, upstream-portable extraction of C0040's descent kernel: four perfect squares can never form a *nonconstant* arithmetic progression. A genuine **Mathlib gap** (no four-squares-in-AP / `x⁴−y⁴=z²` / congruent-number theorem exists; only the parallel `not_fermat_42`, `a⁴+b⁴≠c²`, is present) → **Mathlib-PR candidate**. Byte-identical lift of the 17-decl transitive closure + a clean AP-form wrapper; proof-auditor PASS. `x⁴−y⁴≠z²` deferred (needs its own descent) | `no_four_squares_in_ap`, `four_squares_not_in_ap` | ✅ SOLVED |
+| 0043 | **Fermat's "no four squares in AP" (1640)** — a standalone, minimal, upstream-portable extraction of C0040's descent kernel: four perfect squares can never form a *nonconstant* arithmetic progression. A genuine **Mathlib gap** (no four-squares-in-AP / `x⁴−y⁴=z²` / congruent-number theorem exists; only the parallel `not_fermat_42`, `a⁴+b⁴≠c²`, is present) → **Mathlib-PR candidate**. Byte-identical lift of the 17-decl transitive closure + a clean AP-form wrapper; proof-auditor PASS. The right-triangle form `x⁴−y⁴=z²` needs its own descent and is C0045 | `no_four_squares_in_ap`, `four_squares_not_in_ap` | ✅ SOLVED |
 | 0044 | **Erdős #647, reflection-certified** (Certify **v2**): the `MathProof.Certify.Reflect` moat — a fast pure-`Nat` divisor count `tauS` proven `= σ 0` (`tauS_eq`) inside a structural Bool prefix-max sweep (`sweepS_sound`), run under `decide +kernel` with GMP `Nat` arithmetic instead of unfolding `Finset.divisors` — certifies the no-witness fact on **`[25, 3000)`**, **50× the v1 window** of C0042. `sweep_ok_3000` depends on **no axioms**; the bridge on the trusted trio. Honest partial (sweep found no witness ≤2·10⁶), **not** the £25 prize | `no_witness_below_3000` | ✅ SOLVED |
 | 0045 | **Fermat's right-triangle theorem, quartic `−` form**: `x⁴ − y⁴ = z²` has only trivial solutions (nonzero `a,b` ⟹ `c=0`) — the `−` mirror of Mathlib's `not_fermat_42` (`a⁴+b⁴≠c²`) and a genuine **Mathlib gap**; completes the right-triangle family with C0043. Infinite descent (minimal counterexample on `a.natAbs` → `PythagoreanTriple.coprime_classification'` → two parity forks, `c`-odd via a four-way `Int.sq_of_gcd_eq_one` split → strictly smaller solution), a structural clone of `Fermat42.not_minimal`. Trusted-trio axioms | `fermat_sub_four`, `no_nontrivial_fermat_sub_four` | ✅ SOLVED |
 | 0046 | **`30 ∣ n⁵ − n`** for all `n : ℤ` — the classic independent-leaf theorem (`30 = 2·3·5` pairwise coprime; `nᵖ ≡ n` mod each of 2,3,5). First **`/swarm` dogfood** (shared-blackboard, Phase ① end-to-end): 3 independent modular leaves (`2∣`, `3∣`, `5∣`, each `ZMod k` + `decide`) proven **in parallel** by three `lean-prover`s on a shared blackboard, combined by `IsCoprime.mul_dvd` (`Int.isCoprime_iff_gcd_eq_one` + `decide`) and kernel-gated. Surfaced & fixed two `bank.sh` bugs in-session (in-place `add` self-copy abort; `assemble` dependency-order). Trusted-trio axioms | `challenge_statement`, `dvd_two`, `dvd_three`, `dvd_five` | ✅ SOLVED |
@@ -318,8 +333,9 @@ Row 0042 ends "**NOT** the £25 prize". Most things are not the £25 prize; this
 
 Check for drift with `scripts/verify-all.sh` (it warns on any module missing a row); the 4-column
 table above is hand-curated (`--table` prints only a 2-column status list). C0007–C0010, C0011–C0014, and
-C0015–C0018 were each proved by a parallel `lean-prover` swarm and cleared by `proof-auditor`
-(see `.claude/skills/climb`). Batch-3 (C0015–C0018) are genuine multi-step inductions.
+C0015–C0018 were each proved as one batch by parallel `lean-prover` agents and reviewed by
+`proof-auditor` (the `/climb` loop in `.claude/skills/climb`). C0015–C0018 are multi-step
+inductions.
 
 ## Using with Claude Code
 
@@ -341,8 +357,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-Apache-2.0. See [LICENSE](LICENSE). Theorem statements adapted from PutnamBench and Formal
-Conjectures are credited in [NOTICE](NOTICE) and in each module's header.
+Apache-2.0. See [LICENSE](LICENSE). Third-party material (theorem statements from PutnamBench
+and Formal Conjectures, and the one module ported from Mathlib) is credited in
+[NOTICE](NOTICE) and in each module's header.
 
 ## Author
 

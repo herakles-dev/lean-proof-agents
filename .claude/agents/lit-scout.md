@@ -23,7 +23,7 @@ you may cite without reading the paper. Input: an Erdős/problem number or a sta
 OpenAlex, zbMATH, Crossref, DBLP, MathOverflow; `--erdos N` also prints the problem's
 `problems.yaml` row (`informal`/`formal_status`/`last_update`/`prize`/`oeis`). Backends are
 best-effort; a dead one never kills the run (reachability prints to stderr). Also run
-`scripts/zulip.sh search "<terms>"` for Lean-community claim/discussion recon.
+`scripts/zulip.sh search "<terms>"` for Lean-community claim/discussion recon (it needs Lean Zulip credentials; without them, report Zulip as unavailable, never as "none found").
 
 ## Method (beat the false-negative trap)
 1. **Query by CONTENT in 2–3 phrasings**, not only the number — papers rarely cite the problem

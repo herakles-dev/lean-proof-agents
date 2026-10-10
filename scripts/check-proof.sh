@@ -2,6 +2,7 @@
 # check-proof.sh — proof-completeness gate for a challenge.
 #
 #   scripts/check-proof.sh C0001Warmup                          # bare name → Challenges/
+#   scripts/check-proof.sh C0001                                # number alone → the module with that number
 #   scripts/check-proof.sh MathProof.Challenges.C0001Warmup     # dotted module
 #   scripts/check-proof.sh MathProof/Challenges/C0001Warmup.lean # path
 #   scripts/check-proof.sh MathProof.Certify.Reflect --all      # any MathProof/ subdir (the moat)
@@ -33,7 +34,7 @@ cd "$ROOT"
 . "$HOME/.elan/env" 2>/dev/null || export PATH="$HOME/.elan/bin:$PATH"
 
 arg="${1:-}"
-[[ -z "$arg" ]] && { echo "usage: check-proof.sh <ChallengeModule | path> [theoremName]" >&2; exit 2; }
+[[ -z "$arg" ]] && { echo "usage: check-proof.sh <ChallengeModule | path> [theoremName | --all]" >&2; exit 2; }
 thm="${2:-}"
 
 # Normalize any accepted form to (source file, dotted module namespace). Supports both the
@@ -45,6 +46,10 @@ if [[ "$arg_noext" == *"/"* ]]; then          # path form:   MathProof/Sub/Mod(.
 elif [[ "$arg_noext" == *"."* ]]; then        # dotted form: MathProof.Sub.Mod
   modpath="$arg_noext"; file="${arg_noext//.//}.lean"
 else                                           # bare name → default to Challenges/
+  if [[ "$arg_noext" =~ ^C[0-9]{4}$ ]]; then  # number alone → the one module with that number
+    shopt -s nullglob; cand=(MathProof/Challenges/"${arg_noext}"[!0-9]*.lean); shopt -u nullglob
+    [[ ${#cand[@]} -eq 1 ]] && { arg_noext="$(basename "${cand[0]}" .lean)"; name="$arg_noext"; }
+  fi
   modpath="MathProof.Challenges.${arg_noext}"; file="MathProof/Challenges/${arg_noext}.lean"
 fi
 [[ -f "$file" ]] || { echo "not found: $file" >&2; exit 2; }

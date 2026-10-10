@@ -2,8 +2,8 @@
 # lit-search.sh — the mandatory literature pre-pass: "has this been solved already?"
 #
 # Fans one query out to free scholarly DATA sources and returns ranked hits, so we never
-# invest a Lean proof in a problem the literature quietly closed years ago (the #593/#707
-# lesson: the erdosproblems DB lags the papers). This is a SCRATCHPAD gate, NOT a proof and
+# invest a Lean proof in a problem the literature quietly closed years ago (a known gap:
+# the erdosproblems DB lags the papers). This is a SCRATCHPAD gate, NOT a proof and
 # NOT a verdict — a human/lit-scout reads the hits and decides. Lean's kernel is the only
 # arbiter of a proof; this only tells us whether to bother.
 #
@@ -28,6 +28,8 @@
 # Env knobs: LIT_CACHE_TTL (cache TTL secs, default 86400) · LIT_TIMEOUT (per-fetch secs, default 25)
 #            · LIT_MAX (max hits kept, default 12).
 set -euo pipefail
+command -v curl >/dev/null 2>&1 || { echo "lit-search.sh: needs curl" >&2; exit 1; }
+command -v python3 >/dev/null 2>&1 || { echo "lit-search.sh: needs python3" >&2; exit 1; }
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"

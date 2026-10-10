@@ -21,7 +21,7 @@
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-cd "$ROOT"
+cd "$ROOT" || exit 2
 . "$HOME/.elan/env" 2>/dev/null || export PATH="$HOME/.elan/bin:$PATH"
 
 mode="human"

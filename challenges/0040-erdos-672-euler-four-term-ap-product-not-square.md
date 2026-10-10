@@ -4,8 +4,12 @@
 - **Theorems:** `ap4_prod_ne_sq` (full theorem, PROVEN), `ap4_prod_ne_sq_d_eq_one`, `ap4_prod_ne_sq_d_ge_two`, and the descent kernels `no_four_squares_in_ap` / `four_squares_ap_descent` / `four_squares_ap_descent_step_primitive` — all PROVEN.
 - **Status:** ✅ SOLVED — `sorry`-free, clean axioms (`#print axioms ap4_prod_ne_sq` =
   `[propext, Classical.choice, Quot.sound]`; `scripts/check-proof.sh C0040… --all` → SOLVED).
-  Closed end-to-end by a multi-agent DEPTH loop (strategist plan → normalization → parallel
-  Pythagorean/Gaussian provers → a final descent step by the strongest prover model used here).
+  Written by Claude-based agents (a planning agent plus several provers working in parallel).
+- **Upstream:** formal-conjectures
+  [PR #5481](https://github.com/google-deepmind/formal-conjectures/pull/5481) (merged 2026-09-18)
+  links this proof from `erdos_672.variants.euler`. The proof is published at
+  <https://github.com/herakles-dev/erdos672-four-squares-lean>; it is linked, not contained in
+  formal-conjectures.
 
 ## Problem
 
@@ -70,13 +74,12 @@ not a usable reduction), so it is proved **from scratch**:
 
 Note **equal-area ≠ square-area**, so this is *strictly harder* than Fermat's right-triangle
 descent — no single square-extraction shortcut. Comparable in depth to `not_fermat_42` (Beeger 1917 / Mordell, *Diophantine
-Equations* ch. 4). **`no_four_squares_in_ap` is a genuine Mathlib gap → a candidate Mathlib PR.**
+Equations* ch. 4). **As of September 2026, `no_four_squares_in_ap` appears to be a Mathlib gap (none found when this was written) → a candidate Mathlib PR.**
 
 ## Notes
 
 Explored via the strategist's anchor identity (verified by `ring`) and a brute-force truth-gate
 (no 4-square AP with roots ≤ 20000); no Wolfram/OEIS lookup needed — this is Euler's classical
-theorem. Solved by a multi-agent DEPTH loop: `proof-strategist` plan + ledger (not committed),
-`lean-prover-opus` normalization, parallel Pythagorean + Gaussian provers (which converged on the
-2-var kernel and caught the equal-area≠square-area subtlety), and a final prover using the strongest model tier for
-the final descent. Reusable recipes logged to `PROOF_PATTERNS.md`.
+theorem. The proof was written by Claude-based agents: a planning agent, a normalization prover, and
+parallel Pythagorean and Gaussian provers (which converged on the 2-var kernel and caught the
+equal-area≠square-area subtlety), followed by a prover for the final descent. Reusable recipes logged to `PROOF_PATTERNS.md`.

@@ -15,6 +15,10 @@ form `n! + yᵏ = xᵏ` — *does* have solutions: `10! + 36⁴ = 48⁴`, i.e. `
 `erdos_399.variants.cambie`, tagged `@[category research solved, AMS 11]` with a `sorry` body
 upstream when this was written (September 2026), i.e. a formalization gap for a result tagged as solved. Statement reproduced verbatim.
 
+**Upstream status:** this proof was merged into formal-conjectures as
+[PR #5425](https://github.com/google-deepmind/formal-conjectures/pull/5425)
+("feat(ErdosProblems/399): prove erdos_399.variants.cambie", merged 2026-09-18).
+
 ## Formal statement
 
 ```lean

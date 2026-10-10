@@ -9,13 +9,7 @@ Classic olympiad inequality: for positive reals `a, b, c`,
 `a/(b+c) + b/(a+c) + c/(a+b) ≥ 3/2`, with equality iff `a = b = c`.
 Truth-gated over ℚ (equality 3/2 at a=b=c=1; 5/3, 2, 65/42, 57/11 at other points).
 
-Workflow:
-1. (optional) explore first:  `scripts/wolfram.sh "<atomic query>"`
-2. state the theorem below, keep `sorry` while you work
-3. build it:  `lake build MathProof.Challenges.C0020NesbittInequality`
-4. verify done (no sorry, clean axioms):  `scripts/check-proof.sh C0020NesbittInequality`
-
-Not imported by `MathProof.lean` until `scripts/new-challenge.sh` copies it.
+Verify:  `scripts/check-proof.sh C0020NesbittInequality`
 -/
 
 namespace MathProof.Challenges.C0020NesbittInequality

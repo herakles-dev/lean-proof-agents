@@ -1,5 +1,6 @@
 # Challenge 0043 — Fermat: no four squares in arithmetic progression (1640)
 
+- **Note:** the file name says "right-triangle theorem", but the theorems proved here are `no_four_squares_in_ap` and `four_squares_not_in_ap`; the `x⁴ − y⁴ = z²` form is challenge 0045.
 - **Module:** `MathProof/Challenges/C0043FermatRightTriangleTheorem.lean`
 - **Theorems:** `no_four_squares_in_ap`, `four_squares_not_in_ap` (AP-form wrapper)
 - **Status:** ✅ SOLVED — `sorry`-free, axioms `[propext, Classical.choice, Quot.sound]`
@@ -11,7 +12,7 @@ Prove **Fermat's theorem of 1640**: four perfect squares can never form a *nonco
 arithmetic progression. Equivalently, this is Fermat's *right-triangle theorem* (no Pythagorean
 triangle has square area) and the congruent-number-1 obstruction.
 
-To the author's knowledge this is a **Mathlib gap** (a Mathlib-PR candidate): at the pinned toolchain Mathlib has
+To the author's knowledge, as of September 2026, this is a **Mathlib gap** (a Mathlib-PR candidate): at the pinned toolchain Mathlib has
 no four-squares-in-AP theorem, no `x⁴ − y⁴ ≠ z²` right-triangle theorem, and no congruent-number
 theorem. The only nearby result is `not_fermat_42` (`a⁴ + b⁴ ≠ c²`,
 `Mathlib/NumberTheory/FLT/Four.lean`) — the *parallel* `+`-descent, not reachable from this one by a
@@ -42,12 +43,12 @@ is a minimal, upstream-portable unit.
 triangles → four-number factorisation `P·Q = P'·Q'` → concordant pair `X²+Y²=□ ∧ X²+4Y²=□` →
 infinite descent on `|X|·|Y|` (residual cofactor `k ∣ 3` killed mod 3).
 
-## Deferred (follow-up challenge)
+## Right-triangle form (see challenge 0045)
 
 The explicit right-triangle form `x⁴ − y⁴ ≠ z²` is **equivalent** but *not* a `ring`-identity
 corollary: a solution yields only three squares in AP (the Pythagorean triple `(y², z, x²)`);
-producing the fourth is itself a Fermat descent step. So `x⁴ − y⁴ ≠ z²` needs its own descent and is
-scoped as a separate challenge.
+producing the fourth is itself a Fermat descent step. It is proved separately in challenge 0045
+(`fermat_sub_four`).
 
 ## Notes
 

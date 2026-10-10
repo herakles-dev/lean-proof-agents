@@ -7,13 +7,18 @@ import MathProof.Basic
 (`#print axioms no_four_squares_in_ap` = `[propext, Classical.choice, Quot.sound]`; verify with
 `scripts/check-proof.sh C0043FermatRightTriangleTheorem --all`).
 
+(The module name says "right-triangle theorem". The theorems proved here are the equivalent
+four-squares-in-AP statements; the right-triangle form `x⁴ − y⁴ = z²` itself is
+`C0045FermatSubFour`.)
+
 ## What this module proves
 
 `no_four_squares_in_ap` : **four perfect squares can never form a nonconstant arithmetic
 progression** — Fermat's theorem of 1640, equivalent to his right-triangle theorem (no Pythagorean
 triangle has square area) and to the congruent-number-1 obstruction.
 
-This is a **genuine Mathlib gap**: Mathlib (checked) exposes *no* four-squares-in-AP theorem, *no*
+This is a **genuine Mathlib gap**: Mathlib (checked September 2026, at the revision pinned in
+`lake-manifest.json`) exposes *no* four-squares-in-AP theorem, *no*
 `x⁴ − y⁴ ≠ z²` (Fermat right-triangle) theorem, and *no* congruent-number theorem. The only nearby
 result is `not_fermat_42` (`a⁴ + b⁴ ≠ c²`, `Mathlib/NumberTheory/FLT/Four.lean`), which is the
 *parallel* `+`-descent — not reachable from this one by a short algebraic identity. Hence this is a
@@ -27,12 +32,12 @@ closure of `no_four_squares_in_ap` (17 declarations) — all Erdős-specific mac
 (`ap4_prod_ne_sq*`, `sg7*`, `concordant_forms_*`) is intentionally dropped so the module is a
 minimal, upstream-portable unit.
 
-## Deferred (follow-up challenge)
+## Follow-up: proved in C0045
 
 The explicit right-triangle form `x⁴ − y⁴ ≠ z²` is **equivalent** but not a `ring`-identity
 corollary of the above: a solution yields only *three* squares in AP (the Pythagorean triple
 `(y², z, x²)`); producing the fourth is itself a Fermat descent step. So `x⁴ − y⁴ ≠ z²` needs its
-own descent and is scoped as a separate challenge, not forced onto this one.
+own descent. That descent is `fermat_sub_four` in `C0045FermatSubFour`.
 
 ## Proof architecture (bottom-up)
 

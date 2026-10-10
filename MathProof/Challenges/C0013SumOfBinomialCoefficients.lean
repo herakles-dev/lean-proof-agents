@@ -5,13 +5,7 @@ import MathProof.Basic
 
 **Status:** ✅ SOLVED
 
-Workflow:
-1. (optional) explore first:  `scripts/wolfram.sh "<atomic query>"`
-2. state the theorem below, keep `sorry` while you work
-3. build it:  `lake build MathProof.Challenges.C0013SumOfBinomialCoefficients`
-4. verify done (no sorry, clean axioms):  `scripts/check-proof.sh C0013SumOfBinomialCoefficients`
-
-Not imported by `MathProof.lean` until `scripts/new-challenge.sh` copies it.
+Verify:  `scripts/check-proof.sh C0013SumOfBinomialCoefficients`
 -/
 
 namespace MathProof.Challenges.C0013SumOfBinomialCoefficients

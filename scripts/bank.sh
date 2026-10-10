@@ -39,7 +39,7 @@ BANK_DIR_REL="MathProof/Bank"
 cmd="${1:-}"; att="${2:-}"
 
 die() { echo "$1" >&2; exit 2; }
-[[ -z "$cmd" ]] && die "usage: bank.sh {init|add|blackboard|list|verify|assemble|clean|selftest} <Attempt> [...]"
+[[ -z "$cmd" ]] && die "usage: bank.sh {init|add|blackboard|list|verify|assemble|race|clean|selftest} <Attempt> [...]"
 # `selftest` takes no <Attempt> (it drives its own throwaway attempt); everything else requires one.
 if [[ "$cmd" != "selftest" ]]; then
   [[ -z "$att" ]] && die "missing <Attempt> (a CamelCase id, e.g. C0046Foo)"

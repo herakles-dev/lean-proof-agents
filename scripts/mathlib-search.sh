@@ -20,7 +20,7 @@
 #
 # NOTE: network backends (loogle, LeanSearch) are best-effort — the local grep backend is
 # the reliable one and always runs as a fallback. LeanSearch (POST leansearch.net/search) and
-# loogle are confirmed reachable from this host; OEIS was not (403). arXiv works over HTTPS.
+# loogle were reachable when last checked; OEIS was not (403). arXiv works over HTTPS.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

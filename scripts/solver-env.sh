@@ -3,8 +3,8 @@
 #
 # Creates a repo-local Python venv (.venv-solvers/, gitignored) with SAT/SMT/CAS/graph solvers,
 # and builds the two source-only tools (kissat, nauty `geng`). No sudo, no apt.
-# NOTE: the #647 sweep needs only numpy; this stack is for #64's SAT/SMT search, so the install
-# is optional and deferred until then — nothing here runs until you call `install`.
+# NOTE: the numpy sweep needs only numpy; this stack is for SAT/SMT search, so the install
+# is optional — nothing here runs until you call `install`.
 #
 # `install` DOWNLOADS, BUILDS and WRITES (it prints this plan again before starting):
 #   * PyPI wheels (UNPINNED, latest) into <repo>/.venv-solvers/   (pip, or uv if present)

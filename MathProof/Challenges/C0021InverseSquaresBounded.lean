@@ -10,13 +10,7 @@ The Basel partial sums `∑_{k=1}^{n} 1/k²` are bounded above by `2` (they conv
 inductive hypothesis must be *strengthened* to `≤ 2 - 1/n` (using `1/(n+1)² ≤ 1/n - 1/(n+1)`).
 Truth-gated over ℚ: n=1→1, n=2→5/4, n=3→49/36, n=10→≈1.550, all `< 2`.
 
-Workflow:
-1. (optional) explore first:  `scripts/wolfram.sh "<atomic query>"`
-2. state the theorem below, keep `sorry` while you work
-3. build it:  `lake build MathProof.Challenges.C0021InverseSquaresBounded`
-4. verify done (no sorry, clean axioms):  `scripts/check-proof.sh C0021InverseSquaresBounded`
-
-Not imported by `MathProof.lean` until `scripts/new-challenge.sh` copies it.
+Verify:  `scripts/check-proof.sh C0021InverseSquaresBounded`
 -/
 
 namespace MathProof.Challenges.C0021InverseSquaresBounded

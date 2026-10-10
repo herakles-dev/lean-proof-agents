@@ -12,7 +12,7 @@ representation of a natural number, and appears in google-deepmind/formal-conjec
 lemma `exists_finsetSum_two_pow` supporting the (still-open) Erdős Problem #349 on additively
 complete sequences `⌊t·αⁿ⌋`.
 
-Source: `ErdosProblems/349.lean`, `@[category research solved, AMS 11]`, body `sorry` upstream.
+Source: `ErdosProblems/349.lean`, `@[category research solved, AMS 11]`, body `sorry` upstream when this was written (September 2026).
 This repo's proof is an independent formalization of the same sub-lemma and is not an upstream
 contribution.
 

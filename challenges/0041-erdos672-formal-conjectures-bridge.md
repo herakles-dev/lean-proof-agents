@@ -42,4 +42,7 @@ Bridge from the abstract AP predicate to the concrete product, then invoke C0040
 are copied verbatim from upstream (identical Lean/Mathlib pin), so the proof term of
 `erdos_672_variants_euler` drops directly into their `672.lean` in place of the `sorry`. The only
 non-Mathlib dependency is `ap4_prod_ne_sq`, so the real PR contributes the C0040 descent + this
-bridge together. At the time of writing the author found the target open there (no `formal_proof` attribute).
+bridge together. Upstream status: formal-conjectures
+[PR #5481](https://github.com/google-deepmind/formal-conjectures/pull/5481) (merged 2026-09-18)
+links the externally published proof (challenges 0040 + 0041,
+<https://github.com/herakles-dev/erdos672-four-squares-lean>) from `erdos_672.variants.euler`; the proof itself is not inside formal-conjectures.
