@@ -1,0 +1,31 @@
+lean-proof-agents
+Copyright 2026 D. Michael Piscitelli
+
+Licensed under the Apache License, Version 2.0. See the LICENSE file.
+
+Third-party material
+--------------------
+
+This repository contains material taken or adapted from the projects below. Each affected
+module says so in its header comment or in the docstring of the copied definition.
+
+- Mathlib (https://github.com/leanprover-community/mathlib4), Apache License 2.0.
+  MathProof/Challenges/C0023IMO1988Q6PerfectSquare.lean is a port of Mathlib's
+  Archive/Imo/Imo1988Q6.lean: both theorems and their proofs are unchanged.
+  Copyright (c) 2019 Johan Commelin. Author: Johan Commelin.
+  The file carries the original notice and a list of the changes made.
+
+- Formal Conjectures (https://github.com/google-deepmind/formal-conjectures),
+  Apache License 2.0. Copyright 2025 The Formal Conjectures Authors.
+  Theorem statements for several Erdős-problem challenges are taken from it, and
+  C0041 and C0047 replicate its definitions verbatim (marked "Replicated verbatim" in
+  the source). The witness in C0047 is Danzer's construction, taken from the same project.
+
+- PutnamBench (https://github.com/trishullab/PutnamBench), whose Lean 4 formalizations
+  are released under the Apache License 2.0. Authors, as listed by that project:
+  George Tsoukalas, Jasper Lee, John Jennings, Jimmy Xin, Michelle Ding, Michael Jennings,
+  Amitayush Thakur, Swarat Chaudhuri.
+  Theorem statements for the Putnam challenges are taken from it.
+
+This repository uses Mathlib as a library. It is fetched at build time and is not redistributed
+here, apart from the one ported file named above.

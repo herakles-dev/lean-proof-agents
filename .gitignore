@@ -1,0 +1,26 @@
+# Lake build outputs & fetched packages (Mathlib etc.)
+/.lake
+
+artifacts/
+
+# Trajectory-management subgoal ledgers (per-attempt, regenerated; docs/PROOF_METHODOLOGY.md Part E)
+.proof-ledger/
+
+# PutnamBench local snapshot (fetched, Apache-2.0 upstream)
+.putnam-cache/
+
+# Tier-1 finite-computation solver layer (fetched/generated)
+.venv-solvers/
+.erdos-cache/
+.lit-cache/
+.search/
+
+# Python bytecode (solver predicates)
+__pycache__/
+*.pyc
+
+# Swarm blackboard: per-attempt leaf modules written by scripts/bank.sh (regenerated)
+MathProof/Bank/
+
+# Local credentials (copy .env.example to .env; never commit it)
+.env

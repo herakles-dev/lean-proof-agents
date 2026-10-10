@@ -1,0 +1,56 @@
+-- MathProof — root aggregator module.
+-- Imports the shared foundation, then every challenge module.
+-- `scripts/new-challenge.sh` appends new challenge imports below the marker.
+import MathProof.Basic
+import MathProof.Certify
+
+-- >>> challenges (managed by scripts/new-challenge.sh) >>>
+import MathProof.Challenges.C0001Warmup
+import MathProof.Challenges.C0002InfinitudeOfPrimes
+import MathProof.Challenges.C0003GaussSum
+import MathProof.Challenges.C0004SumOfOdds
+import MathProof.Challenges.C0005SumOfSquares
+import MathProof.Challenges.C0006Amgm
+import MathProof.Challenges.C0007SumOfCubes
+import MathProof.Challenges.C0008BernoulliInequality
+import MathProof.Challenges.C0009SqrtPrimeIrrational
+import MathProof.Challenges.C0010ConsecutiveProductEven
+import MathProof.Challenges.C0011FermatLittleTheorem
+import MathProof.Challenges.C0012FibonacciSum
+import MathProof.Challenges.C0013SumOfBinomialCoefficients
+import MathProof.Challenges.C0014WilsonTheorem
+import MathProof.Challenges.C0015FibonacciSquaresSum
+import MathProof.Challenges.C0016FactorialTelescoping
+import MathProof.Challenges.C0017TelescopingReciprocals
+import MathProof.Challenges.C0018FibonacciLtTwoPow
+import MathProof.Challenges.C0019TelescopingProduct
+import MathProof.Challenges.C0020NesbittInequality
+import MathProof.Challenges.C0021InverseSquaresBounded
+import MathProof.Challenges.C0022PellOrbitInvariant
+import MathProof.Challenges.C0023IMO1988Q6PerfectSquare
+import MathProof.Challenges.C0024Sqrt2PlusSqrt3Irrational
+import MathProof.Challenges.C0025EulerTotientTheorem
+import MathProof.Challenges.C0026Putnam1988B2
+import MathProof.Challenges.C0027Putnam1971A1
+import MathProof.Challenges.C0028Putnam2004B1
+import MathProof.Challenges.C0029Putnam1999A6
+import MathProof.Challenges.C0030Putnam1990B3
+import MathProof.Challenges.C0031Putnam1962A1
+import MathProof.Challenges.C0032Putnam1969B1
+import MathProof.Challenges.C0033Putnam1983A1
+import MathProof.Challenges.C0034Putnam1994B1
+import MathProof.Challenges.C0035Putnam2001A3
+import MathProof.Challenges.C0036FiniteKreinMilmanHullExtremePoints
+import MathProof.Challenges.C0037Erdos399FactorialNeSumTwoFourthPowers
+import MathProof.Challenges.C0038Erdos493ProductMinusSum
+import MathProof.Challenges.C0039Erdos349SumOfDistinctPowersOfTwo
+import MathProof.Challenges.C0040Erdos672EulerFourTermAPProductNotSquare
+import MathProof.Challenges.C0041Erdos672FormalConjecturesBridge
+import MathProof.Challenges.C0042Erdos647BoundedSearch
+import MathProof.Challenges.C0043FermatRightTriangleTheorem
+import MathProof.Challenges.C0044Erdos647ReflectedSweep
+import MathProof.Challenges.C0045FermatSubFour
+import MathProof.Challenges.C0046ThirtyDividesNPow5MinusN
+import MathProof.Challenges.C0047Erdos97ThreeEquidistant9gon
+import MathProof.Challenges.C0048Dvd210NPow13
+-- <<< challenges <<<

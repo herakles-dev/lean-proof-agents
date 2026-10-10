@@ -1,0 +1,46 @@
+name: Lean Action CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      build_docs:
+        description: "Also build Mathlib-style HTML docs (slow — docgen)"
+        type: boolean
+        default: false
+
+# The jobs that run on push/PR only read the repository. Pages/OIDC scopes are granted to the
+# manual-only docs job below, never to the build.
+permissions:
+  contents: read # Read access to repository contents
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: leanprover/lean-action@v1
+      - name: No-sorry gate (verify-all)
+        # lean-action's `lake build` does NOT fail on `sorry` (it's only a warning), so enforce
+        # the real completeness gate here: verify-all re-elaborates every challenge and fails on
+        # any sorry / non-clean module. Fast — this is the gate we care about on every push.
+        run: |
+          source "$HOME/.elan/env" 2>/dev/null || true
+          scripts/verify-all.sh
+        # VERIFY_STRICT is intentionally not set: deprecation warnings stay advisory here (see
+        # verify-all.sh); sorry / unsafe axioms / build errors still fail the job.
+
+  docs:
+    # docgen builds full Mathlib-style HTML docs, which dominates CI time. Make it opt-in:
+    # it runs ONLY on a manual `workflow_dispatch` with build_docs=true, never on push/PR.
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.build_docs }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Read access to repository contents
+      pages: write # Write access to GitHub Pages
+      id-token: write # Write access to ID tokens
+    steps:
+      - uses: actions/checkout@v5
+      - uses: leanprover-community/docgen-action@v1
